@@ -1,0 +1,51 @@
+services:
+  database:
+    image: postgres:latest
+    container_name: ecommerce_db_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ecommercedb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d ecommercedb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: ecommerce_backend_nestjs
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/app
+    depends_on:
+      database:
+        condition: service_healthy
+
+    environment:
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_USERNAME: admin
+      DB_PASSWORD: password
+      DB_DATABASE: ecommercedb
+
+  frontend:
+    build: ./frontend
+    container_name: ecommerce_frontend_react
+    restart: always
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/usr/app
+    stdin_open: true
+    tty: true
+
+volumes:
+  postgres_data:
