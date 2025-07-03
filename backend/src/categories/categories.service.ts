@@ -1,13 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Category } from './entities/category.entity';
 
 @Injectable()
 export class CategoriesService {
+  constructor(
+    @InjectRepository(Category)
+    private categoryRepository: Repository<Category>,
+  ) {}
+
+  // Recebe os dados e os salva no banco
+  create(createCategoryDto: { name: string; imageUrl: string }) {
+    const category = this.categoryRepository.create(createCategoryDto);
+    return this.categoryRepository.save(category);
+  }
+
   findAll() {
-    // Retorna uma lista fixa com as categorias principais do design.
-    return [
-      { id: 1, name: 'Dining', imageUrl: 'url-para-imagem-dining' },
-      { id: 2, name: 'Living', imageUrl: 'url-para-imagem-living' },
-      { id: 3, name: 'Bedroom', imageUrl: 'url-para-imagem-bedroom' },
-    ];
+    return this.categoryRepository.find({ order: { id: 'ASC' } });
   }
 }

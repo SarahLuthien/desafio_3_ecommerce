@@ -1,0 +1,72 @@
+#root {
+  font-family: "Poppins", sans-serif;
+}
+
+/* ------------- Header ------------ */
+
+/* Titulo header */
+.brand-name {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+}
+
+/* ------------- ProductCard ------------ */
+
+/* Container Card */
+.product-card {
+  background-color: #f4f5f7 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  height: 446px !important;
+  width: 305px !important;
+}
+
+product-image-container {
+  position: relative;
+}
+
+/* Overlay*/
+.product-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(58, 58, 58, 0.7);
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-image-container:hover .product-overlay {
+  opacity: 1;
+}
+
+/* Tag de desconto */
+.card .badge.discount-badge {
+  background-color: #e97171 !important; /* Cor customizada do Figma */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+/* Tag de new */
+.card .badge.new-badge {
+  background-color: #2ec1ac !important; /* Cor verde para "Novo" */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+}
