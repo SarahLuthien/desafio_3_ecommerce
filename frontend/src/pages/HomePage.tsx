@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Row, Col } from "react-bootstrap";
-import { ProductCard } from "../components/ProductCard";
+import { ProductList } from "../components/ProductList/ProductList";
 import { type ProductSummary } from "../types/Product";
 
 export function HomePage() {
@@ -10,7 +9,7 @@ export function HomePage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/products")
+      .get("http://localhost:3000/products?_limit=8")
       .then((response) => {
         setProducts(response.data);
       })
@@ -22,17 +21,14 @@ export function HomePage() {
 
   return (
     <>
-      <h1 className="mb-4">Our Products</h1>
       {error ? (
         <p className="text-danger">{error}</p>
       ) : (
-        <Row xs={1} md={2} lg={4} className="g-5">
-          {products.map((product) => (
-            <Col key={product.id}>
-              <ProductCard product={product} />
-            </Col>
-          ))}
-        </Row>
+        <ProductList
+          title="Our Products"
+          products={products}
+          showMoreButton={true}
+        />
       )}
     </>
   );

@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
-import "../App.css";
+import "../../App.css";
 
 export function Header() {
   return (

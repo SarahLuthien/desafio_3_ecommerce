@@ -26,6 +26,10 @@ product-image-container {
   position: relative;
 }
 
+.product-card-img {
+  border-radius: 0 !important;
+}
+
 /* Overlay*/
 .product-overlay {
   position: absolute;
@@ -49,7 +53,7 @@ product-image-container {
 
 /* Tag de desconto */
 .card .badge.discount-badge {
-  background-color: #e97171 !important; /* Cor customizada do Figma */
+  background-color: #e97171 !important;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -61,7 +65,7 @@ product-image-container {
 
 /* Tag de new */
 .card .badge.new-badge {
-  background-color: #2ec1ac !important; /* Cor verde para "Novo" */
+  background-color: #2ec1ac !important;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -69,4 +73,25 @@ product-image-container {
   justify-content: center;
   align-items: center;
   font-size: 0.9rem;
+}
+
+.see-details-btn {
+  background-color: #ffffff !important;
+  color: #b88e2f !important;
+  font-family: "Poppins", sans-serif;
+  line-height: 24px;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  border-radius: 2px !important;
+  border: none;
+  width: 202px;
+  height: 48px;
+  transition: all 0.3s ease;
+}
+
+/* Efeito de hover opcional, para quando o mouse passa por cima */
+.see-details-btn:hover {
+  background-color: #b88e2f !important;
+  color: #ffffff !important;
+  transform: scale(1.05); /* Efeito de zoom sutil */
 }

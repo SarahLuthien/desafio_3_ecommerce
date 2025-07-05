@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import { HomePage } from "./pages/HomePage";
 import { ShopPage } from "./pages/ShopPage";
 import { ProductDetailPage } from "./pages/ProductDetailPage";
-import { Header } from "./components/Header";
+import { Header } from "./components/Header/Header";
 
 function App() {
   return (

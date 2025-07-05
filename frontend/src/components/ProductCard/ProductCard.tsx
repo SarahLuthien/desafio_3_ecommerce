@@ -1,8 +1,9 @@
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
-import { type ProductSummary } from "../types/Product";
-import "../App.css";
+import { type ProductSummary } from "../../types/Product";
+import { Link } from "react-router-dom";
+import "../../App.css";
 
 {
   /* Interface criada via types Product.ts */
@@ -26,14 +27,17 @@ export function ProductCard({ product }: ProductCardProps) {
         <Card.Img
           variant="top"
           src={product.imageUrls[0]}
+          className="product-card-img"
           style={{ height: "301px", objectFit: "cover" }}
         />
 
         {/* Overlay */}
         <div className="product-overlay">
-          <Button variant="light" size="lg">
-            See Details
-          </Button>
+          <Link to={`/products/${product.id}`}>
+            <Button className="see-details-btn" variant="light" size="lg">
+              See Details
+            </Button>
+          </Link>
           <div className="mt-3 d-flex justify-content-center align-items-center fw-bold">
             <div
               className="d-flex align-items-center"
@@ -71,7 +75,7 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
         {product.is_new && !hasDiscount && (
           <Badge className="position-absolute top-0 end-0 m-2 new-badge">
-            Novo
+            New
           </Badge>
         )}
       </div>
