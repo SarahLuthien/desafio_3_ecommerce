@@ -75,7 +75,7 @@ product-image-container {
   font-size: 0.9rem;
 }
 
-.see-details-btn {
+.products-btn {
   background-color: #ffffff !important;
   color: #b88e2f !important;
   font-family: "Poppins", sans-serif;
@@ -90,7 +90,7 @@ product-image-container {
 }
 
 /* Efeito de hover opcional, para quando o mouse passa por cima */
-.see-details-btn:hover {
+.products-btn:hover {
   background-color: #b88e2f !important;
   color: #ffffff !important;
   transform: scale(1.05); /* Efeito de zoom sutil */

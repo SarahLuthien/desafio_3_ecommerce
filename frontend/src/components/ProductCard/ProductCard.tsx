@@ -34,7 +34,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Overlay */}
         <div className="product-overlay">
           <Link to={`/products/${product.id}`}>
-            <Button className="see-details-btn" variant="light" size="lg">
+            <Button className="products-btn" variant="light" size="lg">
               See Details
             </Button>
           </Link>

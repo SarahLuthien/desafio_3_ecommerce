@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 // Propriedades
 interface ProductListProps {
-  title?: string; // Título opcional
+  title?: string;
   products: ProductSummary[];
-  showMoreButton?: boolean; // Button Showmore opcional
+  showMoreButton?: boolean;
 }
 
 export function ProductList({
@@ -32,9 +32,11 @@ export function ProductList({
 
       {/* ShowMoreButton */}
       {showMoreButton && (
-        <div className="text-center mt-4">
+        <div className="text-center mt-5">
           <Link to="/shop">
-            <Button variant="outline-warning">Show More</Button>
+            <Button className="products-btn" variant="outline-warning">
+              Show More
+            </Button>
           </Link>
         </div>
       )}

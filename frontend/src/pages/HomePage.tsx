@@ -9,7 +9,7 @@ export function HomePage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/products?_limit=8")
+      .get("http://localhost:3000/products?limit=8")
       .then((response) => {
         setProducts(response.data);
       })
