@@ -6,6 +6,11 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { NotFoundException } from '@nestjs/common';
 import { UpdateProductDto } from './dto/update-product.dto';
 
+interface FindAllOptions {
+  limit?: number;
+  page?: number;
+}
+
 @Injectable()
 export class ProductsService {
   constructor(
@@ -33,11 +38,16 @@ export class ProductsService {
   }
 
   // Busca todos os produtos do banco de dados
-  findAll() {
+  async findAll(options: FindAllOptions = {}) {
+    const { limit = 10, page = 1 } = options;
+    const skip = (page - 1) * limit;
+
     return this.productsRepository.find({
       order: {
         id: 'ASC',
       },
+      take: limit,
+      skip: skip,
     });
   }
 
