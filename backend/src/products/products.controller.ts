@@ -7,6 +7,7 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor,
   SerializeOptions,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -30,8 +31,8 @@ export class ProductsController {
 
   @Get()
   @SerializeOptions({ groups: ['summary'] })
-  findAll() {
-    return this.productsService.findAll();
+  findAll(@Query('limit') limit?: number, @Query('page') page?: number) {
+    return this.productsService.findAll({ limit, page });
   }
 
   @Get(':id')
