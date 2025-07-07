@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { ProductList } from "../components/ProductList/ProductList";
 import { type ProductSummary } from "../types/Product";
+import { CategoryList } from "../components/CategoryList/CategoryList";
 
 export function HomePage() {
   const [products, setProducts] = useState<ProductSummary[]>([]);
@@ -21,6 +22,14 @@ export function HomePage() {
 
   return (
     <>
+      {/* Aqui virá o Header */}
+
+      {/* Aqui virá o Banner Principal */}
+
+      {/* Sessão Categoria */}
+      <CategoryList />
+
+      {/* Sessão produtos */}
       {error ? (
         <p className="text-danger">{error}</p>
       ) : (

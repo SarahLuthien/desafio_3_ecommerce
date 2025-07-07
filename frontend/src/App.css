@@ -11,7 +11,18 @@
   font-size: 36px;
 }
 
-/* ------------- ProductCard ------------ */
+/* ------------- HomePage: Section Categories ------------ */
+
+.category-card {
+  transition: transform 0.3s ease-in-out;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* ------------- HomePage: Section Products ------------ */
 
 /* Container Card */
 .product-card {
@@ -89,7 +100,6 @@ product-image-container {
   transition: all 0.3s ease;
 }
 
-/* Efeito de hover opcional, para quando o mouse passa por cima */
 .products-btn:hover {
   background-color: #b88e2f !important;
   color: #ffffff !important;
