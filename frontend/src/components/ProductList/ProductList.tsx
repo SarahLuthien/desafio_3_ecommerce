@@ -16,15 +16,15 @@ export function ProductList({
   showMoreButton = false,
 }: ProductListProps) {
   return (
-    <section className="mb-5">
+    <section className="mb-5 d-flex justify-content-center flex-column">
       {/* Título */}
       {title && (
-        <h2 className="section-title mb-4 fs-1 text-center fw-bold">{title}</h2>
+        <h2 className="section-title mb-5 fs-1 text-center fw-bold">{title}</h2>
       )}
-
-      <Row xs={1} md={2} lg={4} className="g-4">
+      {/* Lista de produtos */}
+      <Row xs={1} ms={2} md={2} lg={3} xl={4} className="g-4 ">
         {products.map((product) => (
-          <Col key={product.id}>
+          <Col key={product.id} className="mb-3">
             <ProductCard product={product} />
           </Col>
         ))}
@@ -32,7 +32,7 @@ export function ProductList({
 
       {/* ShowMoreButton */}
       {showMoreButton && (
-        <div className="text-center mt-5">
+        <div className="text-center mt-4">
           <Link to="/shop">
             <Button className="products-btn" variant="outline-warning">
               Show More
