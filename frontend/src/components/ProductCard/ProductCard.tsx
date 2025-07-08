@@ -3,6 +3,8 @@ import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import { type ProductSummary } from "../../types/Product";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../App.css";
 
 {
@@ -24,12 +26,17 @@ export function ProductCard({ product }: ProductCardProps) {
     <Card className="product-card border-0 shadow-sm">
       {/* Container imagem e tags */}
       <div className="product-image-container">
-        <Card.Img
-          variant="top"
-          src={product.imageUrls[0]}
-          className="product-card-img"
-          style={{ height: "301px", objectFit: "cover" }}
-        />
+        <Link to={`/products/${product.id}`} className="text-decoration-none">
+          <LazyLoadImage
+            alt={product.name}
+            src={product.imageUrls[0]}
+            effect="blur"
+            wrapperClassName="product-card-img"
+            height="301px"
+            width="100%"
+            style={{ objectFit: "cover" }}
+          />
+        </Link>
 
         {/* Overlay */}
         <div className="product-overlay">
