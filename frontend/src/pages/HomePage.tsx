@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import { Container } from "react-bootstrap";
 import axios from "axios";
 import { ProductList } from "../components/ProductList/ProductList";
 import { type ProductSummary } from "../types/Product";
 import { CategoryList } from "../components/CategoryList/CategoryList";
+import { FeaturesSection } from "../components/FeaturesSection/FeaturesSection";
+import { Banner } from "../components/Banner/Banner";
 
 export function HomePage() {
   const [products, setProducts] = useState<ProductSummary[]>([]);
@@ -22,23 +25,27 @@ export function HomePage() {
 
   return (
     <>
-      {/* Aqui virá o Header */}
-
-      {/* Aqui virá o Banner Principal */}
+      <Banner />
 
       {/* Sessão Categoria */}
-      <CategoryList />
+      <Container className="my-5">
+        <CategoryList />
+      </Container>
 
       {/* Sessão produtos */}
-      {error ? (
-        <p className="text-danger">{error}</p>
-      ) : (
-        <ProductList
-          title="Our Products"
-          products={products}
-          showMoreButton={true}
-        />
-      )}
+      <Container className="my-5">
+        {error ? (
+          <p className="text-danger">{error}</p>
+        ) : (
+          <ProductList
+            title="Our Products"
+            products={products}
+            showMoreButton={true}
+          />
+        )}
+      </Container>
+
+      <FeaturesSection />
     </>
   );
 }

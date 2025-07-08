@@ -11,6 +11,44 @@
   font-size: 36px;
 }
 
+.link-nav {
+  color: black !important;
+  font-weight: 500 !important;
+}
+
+.link-nav:hover {
+  color: #9f9f9f !important;
+}
+
+.banner-container {
+  background-image: url("../public/assets/images/banner-home.png");
+  background-size: cover;
+  background-position: center;
+  height: 70vh;
+}
+
+.banner-content {
+  background-color: #fff3e3;
+  padding: 4rem;
+  max-width: 600px;
+  border-radius: 10px;
+}
+
+.banner-title {
+  color: #b88e2f;
+  font-size: 3.25rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.banner-button {
+  background-color: #b88e2f !important;
+  border: none !important;
+  font-weight: bold;
+  padding: 1rem 2.5rem !important;
+  margin-top: 1rem;
+}
+
 /* ------------- HomePage: Section Categories ------------ */
 
 .category-card {
@@ -94,7 +132,7 @@ product-image-container {
   font-weight: 600 !important;
   font-size: 16px !important;
   border-radius: 2px !important;
-  border: none;
+  border: 1px #b88e2f solid !important;
   width: 202px;
   height: 48px;
   transition: all 0.3s ease;
@@ -103,5 +141,69 @@ product-image-container {
 .products-btn:hover {
   background-color: #b88e2f !important;
   color: #ffffff !important;
-  transform: scale(1.05); /* Efeito de zoom sutil */
+  transform: scale(1.05);
+}
+
+/* ------------- Footer ------------ */
+
+.footer-section {
+  border-top: 1px solid #d9d9d9;
+}
+
+.footer-brand {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.footer-address {
+  font-size: 16px;
+  color: #9f9f9f;
+  margin-top: 40px;
+}
+
+.footer-col-title {
+  color: #9f9f9f;
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 2.5rem;
+}
+
+.footer-nav-link {
+  color: black !important;
+  font-weight: 500 !important;
+  padding: 0 !important;
+  margin-bottom: 2rem;
+}
+.footer-nav-link:hover {
+  color: #9f9f9f !important;
+}
+
+.newsletter-input {
+  color: #9f9f9f !important;
+  border: none !important;
+  border-bottom: 1px solid black !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+}
+
+.newsletter-input:focus {
+  box-shadow: none !important;
+}
+
+.newsletter-input::-webkit-input-placeholder {
+  color: #9f9f9f !important;
+  font-size: 14px !important;
+}
+
+.newsletter-button {
+  border: none !important;
+  border-bottom: 1px solid black !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  color: black !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  padding: 0 !important;
+  margin-top: 15px;
+  text-decoration: none !important;
 }
