@@ -37,15 +37,16 @@ export class ProductsService {
     return this.productsRepository.save(newProduct);
   }
 
-  // Busca todos os produtos do banco de dados
-  async findAll(options: FindAllOptions = {}) {
-    const { limit = 10, page = 1 } = options;
+  // Busca todos os produtos do banco de dados com filtro por categoria
+  async findAll(options: { limit?: number; page?: number; category?: string }) {
+    const { limit = 16, page = 1, category } = options;
     const skip = (page - 1) * limit;
 
+    const whereCondition = category ? { category: category } : {};
+
     return this.productsRepository.find({
-      order: {
-        id: 'ASC',
-      },
+      where: whereCondition,
+      order: { id: 'ASC' },
       take: limit,
       skip: skip,
     });

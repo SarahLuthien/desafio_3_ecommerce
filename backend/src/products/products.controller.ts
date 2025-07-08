@@ -31,8 +31,12 @@ export class ProductsController {
 
   @Get()
   @SerializeOptions({ groups: ['summary'] })
-  findAll(@Query('limit') limit?: number, @Query('page') page?: number) {
-    return this.productsService.findAll({ limit, page });
+  findAll(
+    @Query('limit') limit?: number,
+    @Query('page') page?: number,
+    @Query('category') category?: string,
+  ) {
+    return this.productsService.findAll({ limit, page, category });
   }
 
   @Get(':id')
