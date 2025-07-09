@@ -1,6 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import {
+  Repository,
+  FindOptionsWhere,
+  FindOptionsOrder,
+  MoreThan,
+} from 'typeorm';
 import { Product } from './entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { NotFoundException } from '@nestjs/common';
@@ -9,6 +14,10 @@ import { UpdateProductDto } from './dto/update-product.dto';
 interface FindAllOptions {
   limit?: number;
   page?: number;
+  category?: string;
+  isNew?: boolean;
+  hasDiscount?: boolean;
+  sortBy?: string;
 }
 
 @Injectable()
@@ -37,16 +46,40 @@ export class ProductsService {
     return this.productsRepository.save(newProduct);
   }
 
-  // Busca todos os produtos do banco de dados com filtro por categoria
-  async findAll(options: { limit?: number; page?: number; category?: string }) {
-    const { limit = 16, page = 1, category } = options;
+  async findAll(options: FindAllOptions = {}) {
+    const {
+      limit = 16,
+      page = 1,
+      category,
+      isNew,
+      hasDiscount,
+      sortBy,
+    } = options;
     const skip = (page - 1) * limit;
 
-    const whereCondition = category ? { category: category } : {};
+    // Condição dos filtros
+    const where: FindOptionsWhere<Product> = {};
+    if (category) {
+      where.category = category;
+    }
+    if (isNew) {
+      where.is_new = true;
+    }
+    if (hasDiscount) {
+      where.discount_percentage = MoreThan(0);
+    }
+
+    // Ordenação por preço ascendente e descendente
+    const order: FindOptionsOrder<Product> = { id: 'ASC' };
+    if (sortBy === 'price_asc') {
+      order.price = 'ASC';
+    } else if (sortBy === 'price_desc') {
+      order.price = 'DESC';
+    }
 
     return this.productsRepository.find({
-      where: whereCondition,
-      order: { id: 'ASC' },
+      where,
+      order,
       take: limit,
       skip: skip,
     });
