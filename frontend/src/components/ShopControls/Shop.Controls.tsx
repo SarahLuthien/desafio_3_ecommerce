@@ -53,7 +53,6 @@ export function ShopControls({
 
             <Dropdown.Menu>
               <Dropdown.Header>Categorias</Dropdown.Header>
-              {/* Adicionamos o onClick para chamar a função do pai */}
               <Dropdown.Item onClick={() => onCategoryChange("Dining")}>
                 Dining
               </Dropdown.Item>
@@ -69,7 +68,6 @@ export function ShopControls({
               <Dropdown.Divider />
               <Dropdown.Header>Outros Filtros</Dropdown.Header>
               <div className="px-3 py-2">
-                {/* Adicionamos o onChange para chamar a função do pai */}
                 <Form.Check
                   type="checkbox"
                   id="new-filter"

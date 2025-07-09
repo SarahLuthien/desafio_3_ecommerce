@@ -7,7 +7,6 @@ import { type Category } from "../../types/Category";
 
 export function CategoryList() {
   const [categories, setCategories] = useState<Category[]>([]);
-  // Poderíamos adicionar um estado de erro aqui também, se quiséssemos
 
   useEffect(() => {
     axios
@@ -17,7 +16,6 @@ export function CategoryList() {
       })
       .catch((error) => {
         console.error("Erro ao buscar categorias:", error);
-        // Lidar com o erro aqui
       });
   }, []);
 

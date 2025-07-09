@@ -15,7 +15,7 @@ export function HomePage() {
     axios
       .get("http://localhost:3000/products?limit=8")
       .then((response) => {
-        setProducts(response.data);
+        setProducts(response.data.data);
       })
       .catch((error) => {
         console.error("Erro ao buscar produtos:", error);
@@ -44,7 +44,7 @@ export function HomePage() {
           />
         )}
       </Container>
-
+      {/* Sessão de informações */}
       <FeaturesSection />
     </>
   );

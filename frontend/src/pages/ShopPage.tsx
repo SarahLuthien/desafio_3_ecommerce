@@ -74,7 +74,7 @@ export function ShopPage() {
         title="Shop"
         backgroundImageUrl="/assets/images/banner-shop.png"
       />
-
+      {/* Sessão de filtros */}
       <Container fluid className="px-0">
         <ShopControls
           totalProducts={totalProducts}
@@ -93,6 +93,7 @@ export function ShopPage() {
           <Alert variant="danger">{error}</Alert>
         ) : (
           <>
+            {/* Sessão da lista de produtos */}
             <ProductList products={products} viewMode={viewMode} />
             <div className="container-pagination">
               {totalPages > 1 && (
@@ -123,6 +124,7 @@ export function ShopPage() {
           </>
         )}
       </Container>
+      {/* Sessão de informações */}
       <FeaturesSection />
     </>
   );
