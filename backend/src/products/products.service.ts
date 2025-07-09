@@ -70,11 +70,13 @@ export class ProductsService {
     }
 
     // Ordenação por preço ascendente e descendente
-    const order: FindOptionsOrder<Product> = { id: 'ASC' };
+    const order: FindOptionsOrder<Product> = {};
     if (sortBy === 'price_asc') {
       order.price = 'ASC';
     } else if (sortBy === 'price_desc') {
       order.price = 'DESC';
+    } else {
+      order.id = 'ASC';
     }
 
     return this.productsRepository.find({
