@@ -23,7 +23,7 @@ export function ProductList({
 
   const colProps =
     viewMode === "grid"
-      ? { xs: 1, md: 2, lg: 3, xl: 4 }
+      ? { xs: 1, md: 2, lg: 4, xl: 4 }
       : { xs: 1, md: 1, lg: 1, xl: 1 };
 
   return (

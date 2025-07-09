@@ -6,14 +6,21 @@ import { PageHeader } from "../components/PageHeader/PageHeader";
 import { ShopControls } from "../components/ShopControls/Shop.Controls";
 import { type ProductSummary } from "../types/Product";
 import { useSearchParams } from "react-router-dom";
+import { FeaturesSection } from "../components/FeaturesSection/FeaturesSection";
 
 export function ShopPage() {
   const [products, setProducts] = useState<ProductSummary[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   // --- Estados para todos os filtros e ordenação ---
-  const [searchParams] = useSearchParams();
-  const [categoryFilter] = useState(searchParams.get("category") || "");
+
+  const [filters, setFilters] = useState({
+    category: searchParams.get("category") || "",
+    isNew: false,
+    hasDiscount: false,
+  });
   const [sortBy, setSortBy] = useState("default");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
@@ -29,7 +36,9 @@ export function ShopPage() {
       limit: productsPerPage.toString(),
       sortBy: sortBy,
     });
-    if (categoryFilter) params.append("category", categoryFilter);
+    if (filters.category) params.append("category", filters.category);
+    if (filters.isNew) params.append("isNew", "true");
+    if (filters.hasDiscount) params.append("hasDiscount", "true");
 
     const apiUrl = `http://localhost:3000/products?${params.toString()}`;
 
@@ -43,7 +52,21 @@ export function ShopPage() {
         console.error("Erro ao buscar produtos:", error);
         setError("Não foi possível carregar os produtos.");
       });
-  }, [currentPage, categoryFilter, sortBy, productsPerPage]);
+  }, [currentPage, filters, sortBy, productsPerPage]);
+
+  // Função para atualizar estado do Shopcontrols
+  const handleCategoryChange = (category: string) => {
+    setFilters((prev) => ({ ...prev, category }));
+    setCurrentPage(1);
+  };
+
+  const handleFilterChange = (
+    filter: "isNew" | "hasDiscount",
+    value: boolean
+  ) => {
+    setFilters((prev) => ({ ...prev, [filter]: value }));
+    setCurrentPage(1);
+  };
 
   return (
     <>
@@ -57,6 +80,8 @@ export function ShopPage() {
           totalProducts={totalProducts}
           productsPerPage={productsPerPage}
           currentPage={currentPage}
+          onCategoryChange={handleCategoryChange}
+          onFilterChange={handleFilterChange}
           onSortChange={setSortBy}
           onShowCountChange={setProductsPerPage}
           onViewModeChange={setViewMode}
@@ -69,17 +94,9 @@ export function ShopPage() {
         ) : (
           <>
             <ProductList products={products} viewMode={viewMode} />
-            <div className="d-flex justify-content-center mt-5">
+            <div className="container-pagination">
               {totalPages > 1 && (
-                <Pagination>
-                  {/* Botão "Anterior" */}
-                  <Pagination.Prev
-                    onClick={() =>
-                      setCurrentPage((prev) => Math.max(prev - 1, 1))
-                    }
-                    disabled={currentPage === 1}
-                  />
-
+                <Pagination className="custom-pagination">
                   {/* Números das Páginas  */}
                   {[...Array(totalPages).keys()].map((number) => (
                     <Pagination.Item
@@ -97,13 +114,16 @@ export function ShopPage() {
                       setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                     }
                     disabled={currentPage === totalPages}
-                  />
+                  >
+                    Next
+                  </Pagination.Next>
                 </Pagination>
               )}
             </div>
           </>
         )}
       </Container>
+      <FeaturesSection />
     </>
   );
 }
