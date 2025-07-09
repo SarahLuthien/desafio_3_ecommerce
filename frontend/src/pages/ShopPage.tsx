@@ -8,14 +8,16 @@ import { type ProductSummary } from "../types/Product";
 import { useSearchParams } from "react-router-dom";
 
 export function ShopPage() {
-  // O estado 'products' começa como um array vazio, e não undefined
   const [products, setProducts] = useState<ProductSummary[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  // ... (toda a outra lógica de estado para filtros, paginação, etc.)
+  // --- Estados para todos os filtros e ordenação ---
   const [searchParams] = useSearchParams();
   const [categoryFilter] = useState(searchParams.get("category") || "");
   const [sortBy, setSortBy] = useState("default");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+  // Estados para paginação
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
   const [productsPerPage, setProductsPerPage] = useState(16);
@@ -57,7 +59,7 @@ export function ShopPage() {
           currentPage={currentPage}
           onSortChange={setSortBy}
           onShowCountChange={setProductsPerPage}
-          onViewModeChange={() => {}}
+          onViewModeChange={setViewMode}
         />
       </Container>
 
@@ -66,11 +68,11 @@ export function ShopPage() {
           <Alert variant="danger">{error}</Alert>
         ) : (
           <>
-            <ProductList products={products} />
+            <ProductList products={products} viewMode={viewMode} />
             <div className="d-flex justify-content-center mt-5">
               {totalPages > 1 && (
                 <Pagination>
-                  {/* 1. Botão "Anterior" */}
+                  {/* Botão "Anterior" */}
                   <Pagination.Prev
                     onClick={() =>
                       setCurrentPage((prev) => Math.max(prev - 1, 1))
@@ -78,7 +80,7 @@ export function ShopPage() {
                     disabled={currentPage === 1}
                   />
 
-                  {/* 2. Os Números das Páginas (1, 2, 3...) */}
+                  {/* Números das Páginas  */}
                   {[...Array(totalPages).keys()].map((number) => (
                     <Pagination.Item
                       key={number + 1}
@@ -89,7 +91,7 @@ export function ShopPage() {
                     </Pagination.Item>
                   ))}
 
-                  {/* 3. Botão "Próximo" */}
+                  {/* Botão "Próximo" */}
                   <Pagination.Next
                     onClick={() =>
                       setCurrentPage((prev) => Math.min(prev + 1, totalPages))
