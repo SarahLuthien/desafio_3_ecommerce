@@ -35,8 +35,18 @@ export class ProductsController {
     @Query('limit') limit?: number,
     @Query('page') page?: number,
     @Query('category') category?: string,
+    @Query('isNew') isNew?: string,
+    @Query('hasDiscount') hasDiscount?: string,
+    @Query('sortBy') sortBy?: string,
   ) {
-    return this.productsService.findAll({ limit, page, category });
+    return this.productsService.findAll({
+      limit,
+      page,
+      category,
+      isNew: isNew === 'true',
+      hasDiscount: hasDiscount === 'true',
+      sortBy,
+    });
   }
 
   @Get(':id')
