@@ -18,11 +18,18 @@ export function PageHeader({ title, backgroundImageUrl }: PageHeaderProps) {
       };
 
   return (
-    <div style={{ ...style, padding: "4rem 0" }}>
+    <div
+      className="d-flex align-items-center "
+      style={{ ...style, height: "316px" }}
+    >
       <Container className="text-center">
-        <h1 className="fw-bold">{title}</h1>
-        <Breadcrumb className="justify-content-center">
-          <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/" }}>
+        <h1 className="fw-medium">{title}</h1>
+        <Breadcrumb className="d-flex justify-content-center">
+          <Breadcrumb.Item
+            className="breadcrumb-link"
+            linkAs={Link}
+            linkProps={{ to: "/" }}
+          >
             Home
           </Breadcrumb.Item>
           <Breadcrumb.Item active>{title}</Breadcrumb.Item>

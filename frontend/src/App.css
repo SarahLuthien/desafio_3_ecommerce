@@ -17,7 +17,7 @@
 }
 
 .link-nav:hover {
-  color: #9f9f9f !important;
+  color: #b88e2f !important;
 }
 
 /* ------------- Banner ------------ */
@@ -59,10 +59,10 @@
 /* Container Card */
 .product-card {
   background-color: #f4f5f7 !important;
-  border: none !important;
+  border: none;
   border-radius: 0 !important;
   height: 446px !important;
-  width: 305px !important;
+  width: 305px;
 }
 
 product-image-container {
@@ -70,7 +70,7 @@ product-image-container {
 }
 
 .product-card-img {
-  border-radius: 0 !important;
+  border-radius: 0;
 }
 
 /* Overlay*/
@@ -119,7 +119,7 @@ product-image-container {
 }
 
 .products-btn {
-  background-color: #ffffff !important;
+  background-color: #ffffff;
   color: #b88e2f !important;
   font-family: "Poppins", sans-serif;
   line-height: 24px;
@@ -136,6 +136,89 @@ product-image-container {
   background-color: #b88e2f !important;
   color: #ffffff !important;
   transform: scale(1.05);
+}
+
+/* -------------ShopePage: PageHeader ------------ */
+
+.breadcrumb-link a {
+  color: black;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.breadcrumb-link a:hover {
+  color: #b88e2f;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: url("/assets/icons/arrow-down.svg") !important;
+  vertical-align: -0.2em;
+}
+
+/* -------------ShopePage: ShopControls ------------ */
+.shop-controls-bar {
+  background-color: #f9f1e7 !important;
+  padding: 1.5rem 2rem;
+}
+
+.filter-button,
+.view-icon {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.filter-button img,
+.view-icon img {
+  margin-right: 8px;
+}
+
+.shop-input {
+  background-color: white;
+  border: 1px solid #9f9f9f;
+  box-shadow: none;
+  text-align: center;
+  width: 60px;
+  margin: 0 1rem;
+}
+
+.sort-by-select {
+  background-color: white;
+  border: 1px solid #9f9f9f;
+  box-shadow: none;
+  width: 180px;
+}
+
+/* --- ShopePage: Pagination --- */
+
+.container-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.custom-pagination .page-item .page-link {
+  background-color: #f9f1e7;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  font-weight: 400;
+  width: auto;
+  height: auto;
+  padding: 10px 25px;
+  margin: 1.5rem;
+  font-size: 20px;
+}
+
+.custom-pagination .page-item.active .page-link {
+  background-color: #b88e2f;
+  color: white;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+  background-color: #fdf9f4;
+  color: #bdbdbd;
 }
 
 /* ------------- Footer ------------ */
@@ -169,7 +252,7 @@ product-image-container {
   margin-bottom: 2rem;
 }
 .footer-nav-link:hover {
-  color: #9f9f9f !important;
+  color: #b88e2f !important;
 }
 
 .newsletter-input {
@@ -200,4 +283,8 @@ product-image-container {
   padding: 0 !important;
   margin-top: 15px;
   text-decoration: none !important;
+}
+
+.newsletter-button:hover {
+  color: #b88e2f !important;
 }

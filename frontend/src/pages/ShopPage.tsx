@@ -1,29 +1,34 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 import axios from "axios";
-import { Container, Pagination } from "react-bootstrap";
+import { Container, Pagination, Alert } from "react-bootstrap";
 import { ProductList } from "../components/ProductList/ProductList";
 import { PageHeader } from "../components/PageHeader/PageHeader";
-import { ShopControls } from "../components/ShopControls/ShopControls";
+import { ShopControls } from "../components/ShopControls/Shop.Controls";
 import { type ProductSummary } from "../types/Product";
+import { useSearchParams } from "react-router-dom";
+import { FeaturesSection } from "../components/FeaturesSection/FeaturesSection";
 
 export function ShopPage() {
   const [products, setProducts] = useState<ProductSummary[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  // Estados para filtros e ordenação
   const [searchParams, setSearchParams] = useSearchParams();
+
+  // --- Estados para todos os filtros e ordenação ---
+
   const [filters, setFilters] = useState({
     category: searchParams.get("category") || "",
     isNew: false,
     hasDiscount: false,
   });
   const [sortBy, setSortBy] = useState("default");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   // Estados para paginação
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(3);
-  const productsPerPage = 16;
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [productsPerPage, setProductsPerPage] = useState(16);
+  const totalPages = Math.ceil(totalProducts / productsPerPage);
 
   useEffect(() => {
     const params = new URLSearchParams({
@@ -31,7 +36,6 @@ export function ShopPage() {
       limit: productsPerPage.toString(),
       sortBy: sortBy,
     });
-
     if (filters.category) params.append("category", filters.category);
     if (filters.isNew) params.append("isNew", "true");
     if (filters.hasDiscount) params.append("hasDiscount", "true");
@@ -41,18 +45,19 @@ export function ShopPage() {
     axios
       .get(apiUrl)
       .then((response) => {
-        setProducts(response.data);
+        setProducts(response.data.data);
+        setTotalProducts(response.data.total);
       })
       .catch((error) => {
         console.error("Erro ao buscar produtos:", error);
         setError("Não foi possível carregar os produtos.");
       });
-  }, [currentPage, filters, sortBy]); // Atualiza com mudanças de filtro
+  }, [currentPage, filters, sortBy, productsPerPage]);
 
-  // Funções para atualizar o estado a partir do ShopControls
+  // Função para atualizar estado do Shopcontrols
   const handleCategoryChange = (category: string) => {
     setFilters((prev) => ({ ...prev, category }));
-    setCurrentPage(1); // Reseta
+    setCurrentPage(1);
   };
 
   const handleFilterChange = (
@@ -61,10 +66,6 @@ export function ShopPage() {
   ) => {
     setFilters((prev) => ({ ...prev, [filter]: value }));
     setCurrentPage(1);
-  };
-
-  const handleSortChange = (sortKey: string) => {
-    setSortBy(sortKey);
   };
 
   return (
@@ -76,51 +77,53 @@ export function ShopPage() {
 
       <Container fluid className="px-0">
         <ShopControls
+          totalProducts={totalProducts}
+          productsPerPage={productsPerPage}
+          currentPage={currentPage}
           onCategoryChange={handleCategoryChange}
           onFilterChange={handleFilterChange}
-          onSortChange={handleSortChange}
+          onSortChange={setSortBy}
+          onShowCountChange={setProductsPerPage}
+          onViewModeChange={setViewMode}
         />
       </Container>
 
       <Container className="my-5">
         {error ? (
-          <p className="text-danger">{error}</p>
+          <Alert variant="danger">{error}</Alert>
         ) : (
           <>
-            <ProductList products={products} />
-            <div className="d-flex justify-content-center mt-5">
-              <Pagination>
-                {/* Botão Anterior */}
-                <Pagination.Prev
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.max(prev - 1, 1))
-                  }
-                  disabled={currentPage === 1}
-                />
+            <ProductList products={products} viewMode={viewMode} />
+            <div className="container-pagination">
+              {totalPages > 1 && (
+                <Pagination className="custom-pagination">
+                  {/* Números das Páginas  */}
+                  {[...Array(totalPages).keys()].map((number) => (
+                    <Pagination.Item
+                      key={number + 1}
+                      active={number + 1 === currentPage}
+                      onClick={() => setCurrentPage(number + 1)}
+                    >
+                      {number + 1}
+                    </Pagination.Item>
+                  ))}
 
-                {/* Números das Páginas  */}
-                {[...Array(totalPages).keys()].map((number) => (
-                  <Pagination.Item
-                    key={number + 1}
-                    active={number + 1 === currentPage}
-                    onClick={() => setCurrentPage(number + 1)}
+                  {/* Botão "Próximo" */}
+                  <Pagination.Next
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                    }
+                    disabled={currentPage === totalPages}
                   >
-                    {number + 1}
-                  </Pagination.Item>
-                ))}
-
-                {/* 3. Botão Próximo */}
-                <Pagination.Next
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                  }
-                  disabled={currentPage === totalPages}
-                />
-              </Pagination>
+                    Next
+                  </Pagination.Next>
+                </Pagination>
+              )}
             </div>
           </>
         )}
       </Container>
+      <FeaturesSection />
     </>
   );
 }

@@ -8,13 +8,24 @@ interface ProductListProps {
   title?: string;
   products: ProductSummary[];
   showMoreButton?: boolean;
+  viewMode?: "grid" | "list";
 }
 
 export function ProductList({
   title,
   products,
   showMoreButton = false,
+  viewMode = "grid",
 }: ProductListProps) {
+  if (!products) {
+    return null; // Mostrar uma mensagem de "Carregando...??"
+  }
+
+  const colProps =
+    viewMode === "grid"
+      ? { xs: 1, md: 2, lg: 4, xl: 4 }
+      : { xs: 1, md: 1, lg: 1, xl: 1 };
+
   return (
     <section className="mb-5 d-flex justify-content-center flex-column">
       {/* Título */}
@@ -22,9 +33,9 @@ export function ProductList({
         <h2 className="section-title mb-5 fs-1 text-center fw-bold">{title}</h2>
       )}
       {/* Lista de produtos */}
-      <Row xs={1} ms={2} md={2} lg={3} xl={4} className="g-4 ">
+      <Row {...colProps} className="g-4 justify-content-center">
         {products.map((product) => (
-          <Col key={product.id} className="mb-3">
+          <Col key={product.id}>
             <ProductCard product={product} />
           </Col>
         ))}
