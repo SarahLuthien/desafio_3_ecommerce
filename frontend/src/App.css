@@ -138,6 +138,39 @@ product-image-container {
   transform: scale(1.05);
 }
 
+/* ------------- ShopControls ------------ */
+.shop-controls-bar {
+  background-color: #f9f1e7;
+  padding: 1.5rem 2rem;
+}
+
+.filter-button,
+.view-icon {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.filter-button img,
+.view-icon img {
+  margin-right: 8px;
+}
+
+.shop-input {
+  background-color: white !important;
+  border: 1px solid #9f9f9f !important;
+  box-shadow: none !important;
+  text-align: center;
+  width: 60px;
+  margin: 0 1rem;
+}
+
+.sort-by-select {
+  background-color: white !important;
+  border: 1px solid #9f9f9f !important;
+  box-shadow: none !important;
+  width: 180px;
+}
+
 /* ------------- Footer ------------ */
 
 .footer-section {
