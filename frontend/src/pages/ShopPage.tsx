@@ -14,8 +14,7 @@ export function ShopPage() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // --- Estados para todos os filtros e ordenação ---
-
+  // Estados para todos os filtros
   const [filters, setFilters] = useState({
     category: searchParams.get("category") || "",
     isNew: false,
@@ -40,7 +39,7 @@ export function ShopPage() {
     if (filters.isNew) params.append("isNew", "true");
     if (filters.hasDiscount) params.append("hasDiscount", "true");
 
-    const apiUrl = `http://localhost:3000/products?${params.toString()}`;
+    const apiUrl = `/api/products?${params.toString()}`;
 
     axios
       .get(apiUrl)
@@ -68,11 +67,18 @@ export function ShopPage() {
     setCurrentPage(1);
   };
 
+  // breadcrumb
+  const breadcrumbItems = [
+    { label: "Home", path: "/" },
+    { label: "Shop", path: "/shop" },
+  ];
+
   return (
     <>
       <PageHeader
+        items={breadcrumbItems}
         title="Shop"
-        backgroundImageUrl="/assets/images/banner-shop.png"
+        backgroundImageUrl="./assets/images/banner-shop.png"
       />
       {/* Sessão de filtros */}
       <Container fluid className="px-0">

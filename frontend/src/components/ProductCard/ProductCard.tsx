@@ -5,11 +5,7 @@ import { type ProductSummary } from "../../types/Product";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import "../../App.css";
 
-{
-  /* Interface criada via types Product.ts */
-}
 interface ProductCardProps {
   product: ProductSummary;
 }

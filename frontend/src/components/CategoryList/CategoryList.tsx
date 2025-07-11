@@ -10,7 +10,7 @@ export function CategoryList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/categories")
+      .get("/api/categories")
       .then((response) => {
         setCategories(response.data);
       })
@@ -20,8 +20,8 @@ export function CategoryList() {
   }, []);
 
   return (
-    <section className="text-center my-5 py-5">
-      <h2 className="section-title fw-bold">Browse The Range</h2>
+    <section className="text-center py-5 px-5">
+      <h2 className="section-title fw-bold pb-4">Browse The Range</h2>
       <Row className="mt-5">
         {categories.map((category) => (
           <Col md={4} key={category.id} className="mb-4">

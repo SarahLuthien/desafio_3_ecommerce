@@ -4,10 +4,12 @@ import { ShopPage } from "./pages/ShopPage";
 import { ProductDetailPage } from "./pages/ProductDetailPage";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
+import { ScrollToTop } from "./components/ScrollToTop/ScrollTotop";
 
 function App() {
   return (
     <div>
+      <ScrollToTop />
       <Header />
 
       <main>

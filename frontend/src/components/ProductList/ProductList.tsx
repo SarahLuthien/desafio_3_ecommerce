@@ -3,7 +3,6 @@ import { ProductCard } from "../ProductCard/ProductCard";
 import { type ProductSummary } from "../../types/Product";
 import { Link } from "react-router-dom";
 
-// Propriedades
 interface ProductListProps {
   title?: string;
   products: ProductSummary[];
@@ -17,33 +16,38 @@ export function ProductList({
   showMoreButton = false,
   viewMode = "grid",
 }: ProductListProps) {
-  if (!products) {
-    return null; // Mostrar uma mensagem de "Carregando...??"
+  if (viewMode === "list") {
+    return (
+      <section className="mb-5">
+        {title && <h2 className="section-title">{title}</h2>}
+        <div className="d-flex flex-column align-items-center gap-4">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+    );
   }
 
-  const colProps =
-    viewMode === "grid"
-      ? { xs: 1, md: 2, lg: 4, xl: 4 }
-      : { xs: 1, md: 1, lg: 1, xl: 1 };
-
   return (
-    <section className="mb-5 d-flex justify-content-center flex-column">
-      {/* Título */}
-      {title && (
-        <h2 className="section-title mb-5 fs-1 text-center fw-bold">{title}</h2>
-      )}
-      {/* Lista de produtos */}
-      <Row {...colProps} className="g-4 justify-content-center">
+    <section className="mb-5">
+      {title && <h2 className="section-title text-center fw-bold">{title}</h2>}
+      <Row
+        xs={1}
+        md={2}
+        lg={3}
+        xl={4}
+        className="g-3 justify-content-center mt-3"
+      >
         {products.map((product) => (
-          <Col key={product.id}>
+          <Col key={product.id} className="d-flex justify-content-center mt-4">
             <ProductCard product={product} />
           </Col>
         ))}
       </Row>
 
-      {/* ShowMoreButton */}
       {showMoreButton && (
-        <div className="text-center mt-4">
+        <div className="text-center mt-5">
           <Link to="/shop">
             <Button className="products-btn" variant="outline-warning">
               Show More

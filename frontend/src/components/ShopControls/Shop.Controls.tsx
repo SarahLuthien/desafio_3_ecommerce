@@ -107,26 +107,40 @@ export function ShopControls({
       <div className="d-flex align-items-center">
         <Form.Label className="mb-0 me-3 ">Show</Form.Label>
         <Form.Control
-          style={{ width: "70px" }}
+          style={{ width: "60px" }}
           type="number"
           value={productsPerPage}
-          className="shop-form-control text-center text-muted shop-input-show "
+          className="shop-form-control border-0 rounded-0 text-center text-muted shop-input-show "
           onChange={(e) => onShowCountChange(Number(e.target.value))}
           onKeyDown={handleKeyDown}
+          min="8"
+          max="20"
         />
 
         <Form.Label className="mb-0 ms-4 me-3" style={{ width: "60px" }}>
           Sort by
         </Form.Label>
-        <Form.Select
-          style={{ width: "200px" }}
-          className="shop-form-control text-muted shop-select-sort"
-          onChange={(e) => onSortChange(e.target.value)}
+        <Dropdown
+          className="sort-by-select"
+          onSelect={(eventKey) => onSortChange(eventKey || "default")}
         >
-          <option value="default">Default</option>
-          <option value="price_asc">Price: Low to High</option>
-          <option value="price_desc">Price: High to Low</option>
-        </Form.Select>
+          <Dropdown.Toggle
+            variant="none"
+            id="dropdown-sort"
+            className="shop-form-control shop-select-sort"
+          >
+            Default
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu className="sort-by-select sort-by-dropdown">
+            <Dropdown.Item eventKey="price_asc">
+              Price: Low to High
+            </Dropdown.Item>
+            <Dropdown.Item eventKey="price_desc">
+              Price: High to Low
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
     </div>
   );

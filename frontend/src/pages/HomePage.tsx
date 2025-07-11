@@ -13,7 +13,7 @@ export function HomePage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/products?limit=8")
+      .get("/api/products?limit=8")
       .then((response) => {
         setProducts(response.data.data);
       })
