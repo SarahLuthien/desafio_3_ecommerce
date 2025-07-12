@@ -6,19 +6,17 @@ interface ImageGalleryProps {
 }
 
 export function ImageGallery({ imageUrls = [] }: ImageGalleryProps) {
-  const [selectedImage, setSelectedImage] = useState<string | null>(
-    imageUrls[0] || null
-  );
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
 
   useEffect(() => {
-    if (imageUrls.length > 0) {
-      setSelectedImage(imageUrls[0]);
-    }
+    setSelectedImageIndex(0);
   }, [imageUrls]);
 
   if (imageUrls.length === 0) {
     return null;
   }
+
+  const mainImageUrl = imageUrls[selectedImageIndex];
 
   return (
     <Row>
@@ -29,9 +27,9 @@ export function ImageGallery({ imageUrls = [] }: ImageGalleryProps) {
             <div
               key={index}
               className={`thumbnail-item ${
-                selectedImage === url ? "active" : ""
+                selectedImageIndex === index ? "active" : ""
               }`}
-              onClick={() => setSelectedImage(url)}
+              onClick={() => setSelectedImageIndex(index)}
             >
               <Image src={url} className="gallery-thumbnail-img" />
             </div>
@@ -41,7 +39,7 @@ export function ImageGallery({ imageUrls = [] }: ImageGalleryProps) {
 
       {/* Imagem principal */}
       <Col xs={10}>
-        {selectedImage && <Image src={selectedImage} className="main-image" />}
+        {mainImageUrl && <Image src={mainImageUrl} className="main-image" />}
       </Col>
     </Row>
   );

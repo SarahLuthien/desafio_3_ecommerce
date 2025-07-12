@@ -31,7 +31,7 @@ export class ProductsController {
 
   @Get()
   @SerializeOptions({ groups: ['summary'] })
-  findAll(
+  async findAll(
     @Query('limit') limit?: number,
     @Query('page') page?: number,
     @Query('category') category?: string,
@@ -39,7 +39,7 @@ export class ProductsController {
     @Query('hasDiscount') hasDiscount?: string,
     @Query('sortBy') sortBy?: string,
   ) {
-    return this.productsService.findAll({
+    const { products, total } = await this.productsService.findAll({
       limit,
       page,
       category,
@@ -47,6 +47,11 @@ export class ProductsController {
       hasDiscount: hasDiscount === 'true',
       sortBy,
     });
+
+    return {
+      data: products,
+      total,
+    };
   }
 
   @Get(':id')

@@ -4,15 +4,19 @@ services:
     container_name: ecommerce_db_postgres
     restart: always
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: ecommercedb
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-ecommercedb}
     ports:
-      - "5432:5432"
+      - "${DB_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d ecommercedb"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-admin} -d ${POSTGRES_DB:-ecommercedb}",
+        ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -28,13 +32,15 @@ services:
     depends_on:
       database:
         condition: service_healthy
-
     environment:
       DB_HOST: database
-      DB_PORT: 5432
-      DB_USERNAME: admin
-      DB_PASSWORD: password
-      DB_DATABASE: ecommercedb
+      DB_PORT: ${DB_PORT:-5432}
+      DB_USERNAME: ${POSTGRES_USER:-admin}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      DB_DATABASE: ${POSTGRES_DB:-ecommercedb}
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-ecommercedb}
 
   frontend:
     build: ./frontend

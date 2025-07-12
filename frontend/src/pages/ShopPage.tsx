@@ -12,7 +12,7 @@ export function ShopPage() {
   const [products, setProducts] = useState<ProductSummary[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   // Estados para todos os filtros
   const [filters, setFilters] = useState({

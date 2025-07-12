@@ -57,7 +57,7 @@ export class ProductsService {
     } = options;
     const skip = (page - 1) * limit;
 
-    // Condição dos filtros
+    // Filtros
     const where: FindOptionsWhere<Product> = {};
     if (category) {
       where.category = category;
@@ -69,7 +69,7 @@ export class ProductsService {
       where.discount_percentage = MoreThan(0);
     }
 
-    // Ordenação por preço ascendente e descendente
+    // Ordenação
     const order: FindOptionsOrder<Product> = {};
     if (sortBy === 'price_asc') {
       order.price = 'ASC';
@@ -79,12 +79,21 @@ export class ProductsService {
       order.id = 'ASC';
     }
 
-    return this.productsRepository.find({
+    // Total sem paginação
+    const total = await this.productsRepository.count({ where });
+
+    // Produtos paginados
+    const products = await this.productsRepository.find({
       where,
       order,
       take: limit,
-      skip: skip,
+      skip,
     });
+
+    return {
+      products,
+      total,
+    };
   }
 
   // Busca o produto pelo seu único ID
