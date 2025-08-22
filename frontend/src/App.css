@@ -23,24 +23,54 @@
 /* ------------- Banner ------------ */
 
 .banner-container {
+  display: flex;
+  align-items: center;
   background-image: url("../public/assets/images/banner-home.png");
   background-size: cover;
   background-position: center;
-  height: 50vh;
+  height: 70vh;
 }
 
 .banner-content {
   display: flex;
+  flex-direction: column;
   background-color: #fff3e3;
-  padding: 4.5rem 2.5rem 0rem 2.5rem;
   max-width: 630px;
-  height: 300px;
+  height: auto;
   border-radius: 10px;
   font-size: 18px;
   font-weight: 500;
   text-align: left;
   align-items: start;
   align-self: flex-end;
+  flex-wrap: nowrap;
+}
+
+.banner-title {
+  text-align: left;
+  color: #b88e2f;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.banner-subtitle {
+  text-align: left;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+.banner-button {
+  display: flex;
+  width: auto;
+  background-color: #b88e2f !important;
+  border-color: #b88e2f !important;
+  margin-top: 2rem;
+  border-radius: 0% !important;
+}
+
+.banner-button:hover {
+  background-color: #a17d2a !important;
+  border-color: #a17d2a !important;
 }
 
 /* ------------- Categories ------------ */
