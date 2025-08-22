@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
-import { Container } from "react-bootstrap";
 import axios from "axios";
+import { Container } from "react-bootstrap";
 import { ProductList } from "../components/ProductList/ProductList";
-import { type ProductSummary } from "../types/Product";
 import { CategoryList } from "../components/CategoryList/CategoryList";
 import { FeaturesSection } from "../components/FeaturesSection/FeaturesSection";
 import { Banner } from "../components/Banner/Banner";
+import { type ProductSummary } from "../types/Product";
+import { type Category } from "../types/Category";
 
 export function HomePage() {
   const [products, setProducts] = useState<ProductSummary[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -23,16 +25,23 @@ export function HomePage() {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("/api/categories")
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar categorias:", error);
+      });
+  }, []);
+
   return (
     <>
       <Banner />
 
-      {/* Sessão Categoria */}
-      <Container className="my-5">
-        <CategoryList />
-      </Container>
+      <CategoryList categories={categories} />
 
-      {/* Sessão produtos */}
       <Container className="my-5">
         {error ? (
           <p className="text-danger">{error}</p>
@@ -44,7 +53,7 @@ export function HomePage() {
           />
         )}
       </Container>
-      {/* Sessão de informações */}
+
       <FeaturesSection />
     </>
   );

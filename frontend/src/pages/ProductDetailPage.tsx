@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Container, Spinner, Alert } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import apiClient from "../api/axiosConfig";
 import { type ProductDetail } from "../types/Product";
 import { PageHeader } from "../components/PageHeader/PageHeader";
 import { ImageGallery } from "../components/ImageGallery/ImageGallery";
@@ -21,8 +21,8 @@ export function ProductDetailPage() {
 
   useEffect(() => {
     if (id) {
-      axios
-        .get(`/api/products/${id}`)
+      apiClient
+        .get(`/products/${id}`)
         .then((response) => {
           setProduct(response.data);
         })
@@ -39,9 +39,9 @@ export function ProductDetailPage() {
   // busca dos produtos relacionados para o ProductList
   useEffect(() => {
     if (product?.category) {
-      const apiUrl = `/api/products?category=${product.category}&limit=5`;
+      const apiUrl = `/products?category=${product.category}&limit=5`;
 
-      axios
+      apiClient
         .get(apiUrl)
         .then((response) => {
           const filteredProducts = response.data.data

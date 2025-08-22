@@ -1,30 +1,22 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Row, Col } from "react-bootstrap";
 import { CategoryCard } from "../CategoryCard/CategoryCard";
 import { type Category } from "../../types/Category";
 
-export function CategoryList() {
-  const [categories, setCategories] = useState<Category[]>([]);
+interface CategoryListProps {
+  categories: Category[];
+}
 
-  useEffect(() => {
-    axios
-      .get("/api/categories")
-      .then((response) => {
-        setCategories(response.data);
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar categorias:", error);
-      });
-  }, []);
-
+export function CategoryList({ categories }: CategoryListProps) {
   return (
-    <section className="text-center py-5 px-5">
-      <h2 className="section-title fw-bold pb-4">Browse The Range</h2>
-      <Row className="mt-5">
+    <Container className="my-5 text-center">
+      <h2 className="section-title fw-bold">Browse The Range</h2>
+      <p className="text-muted mb-4">
+        Explore as nossas principais categorias de produtos.
+      </p>
+      <Row xs={1} md={3} className="g-4">
         {categories.map((category) => (
-          <Col md={4} key={category.id} className="mb-4">
+          <Col key={category.id}>
             <Link
               to={`/shop?category=${category.name}`}
               className="text-decoration-none text-dark"
@@ -34,6 +26,6 @@ export function CategoryList() {
           </Col>
         ))}
       </Row>
-    </section>
+    </Container>
   );
 }
