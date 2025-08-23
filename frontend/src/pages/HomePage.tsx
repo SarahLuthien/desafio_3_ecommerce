@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import apiClient from "../api/axiosConfig";
 import { Container } from "react-bootstrap";
 import { ProductList } from "../components/ProductList/ProductList";
 import { CategoryList } from "../components/CategoryList/CategoryList";
@@ -14,8 +14,8 @@ export function HomePage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios
-      .get("/api/products?limit=8")
+    apiClient
+      .get("/products?limit=8")
       .then((response) => {
         setProducts(response.data.data);
       })
@@ -26,8 +26,8 @@ export function HomePage() {
   }, []);
 
   useEffect(() => {
-    axios
-      .get("/api/categories")
+    apiClient
+      .get("/categories")
       .then((response) => {
         setCategories(response.data);
       })

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import apiClient from "../api/axiosConfig";
 import { Container, Pagination, Alert } from "react-bootstrap";
 import { ProductList } from "../components/ProductList/ProductList";
@@ -40,11 +39,10 @@ export function ShopPage() {
     if (filters.isNew) params.append("isNew", "true");
     if (filters.hasDiscount) params.append("hasDiscount", "true");
 
-    // const apiUrl = `/api/products?${params.toString()}`;
+    const apiUrl = `/products?${params.toString()}`;
 
-    axios;
     apiClient
-      .get(`/products?${params.toString()}`)
+      .get(apiUrl)
       .then((response) => {
         setProducts(response.data.data);
         setTotalProducts(response.data.total);
