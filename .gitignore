@@ -1,1 +1,57 @@
+
+# Build (gerados automaticamente)
+/dist
+/build
+/frontend/dist
+/backend/dist
+
+# Dependências
+/node_modules
+/frontend/node_modules
+/backend/node_modules
+
+# Variáveis de ambiente (NUNCA SUBIR)
 .env
+.env.*
+frontend/.env*
+backend/.env*
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Dados temporários e runtime
+pids
+*.pid
+*.seed
+*.pid.lock
+.temp
+.tmp
+
+# Coverage e relatórios de testes
+coverage/
+.nyc_output
+*.lcov
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# IDEs e editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
