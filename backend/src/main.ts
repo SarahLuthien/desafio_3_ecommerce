@@ -13,7 +13,8 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:5173',
-      'https://desafio-3-ecommerce.vercel.app/',
+      'https://desafio-3-ecommerce.vercel.app',
+      'https://desafio-3-ecommerce-*.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
