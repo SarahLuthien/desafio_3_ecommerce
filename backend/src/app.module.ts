@@ -1,5 +1,3 @@
-import { randomUUID } from 'crypto';
-const id = randomUUID();
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -18,17 +16,26 @@ import { Category } from './categories/entities/category.entity';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        url: configService.get<string>('DATABASE_URL'),
-        entities: [Product, Category],
-        synchronize: true,
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      }),
-    }),
+      useFactory: (configService: ConfigService) => {
+        const databaseUrl = configService.get<string>('DATABASE_URL');
+        const isProduction = configService.get('NODE_ENV') === 'production';
 
+        return {
+          type: 'postgres',
+          url: databaseUrl,
+          entities: [Product, Category],
+          synchronize: true,
+          ssl: isProduction,
+          extra: isProduction
+            ? {
+                ssl: {
+                  rejectUnauthorized: false,
+                },
+              }
+            : {},
+        };
+      },
+    }),
     ProductsModule,
     CategoriesModule,
   ],

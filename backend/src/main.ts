@@ -14,7 +14,7 @@ async function bootstrap() {
     origin: [
       'http://localhost:5173',
       'https://desafio-3-ecommerce.vercel.app',
-      'https://desafio-3-ecommerce-*.vercel.app',
+      'https://*.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
