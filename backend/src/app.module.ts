@@ -14,21 +14,42 @@ import { Category } from './categories/entities/category.entity';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath:
+        process.env.NODE_ENV === 'production' ? '.env' : '.env.development',
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        url: configService.get<string>('DATABASE_URL'),
-        entities: [Product, Category],
-        synchronize: true,
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      }),
-    }),
+      useFactory: (configService: ConfigService) => {
+        const isProduction = configService.get('NODE_ENV') === 'production';
 
+        if (isProduction) {
+          return {
+            type: 'postgres',
+            url: configService.get('DATABASE_URL'),
+            entities: [Product, Category],
+            synchronize: false,
+            ssl: { rejectUnauthorized: false },
+            extra: {
+              ssl: {
+                rejectUnauthorized: false,
+              },
+            },
+          };
+        }
+
+        return {
+          type: 'postgres',
+          host: configService.get('DB_HOST'),
+          port: configService.get('DB_PORT'),
+          username: configService.get('DB_USERNAME'),
+          password: configService.get('DB_PASSWORD'),
+          database: configService.get('DB_NAME'),
+          entities: [Product, Category],
+          synchronize: true,
+        };
+      },
+    }),
     ProductsModule,
     CategoriesModule,
   ],
