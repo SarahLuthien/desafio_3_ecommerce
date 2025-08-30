@@ -2,6 +2,9 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, ClassSerializerInterceptor } from '@nestjs/common';
 
+import * as crypto from 'crypto';
+globalThis.crypto = crypto as any;
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -14,7 +17,7 @@ async function bootstrap() {
     origin: [
       'http://localhost:5173',
       'https://desafio-3-ecommerce.vercel.app',
-      'https://desafio-3-ecommerce-*.vercel.app',
+      'https://*.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
