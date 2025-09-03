@@ -1,5 +1,3 @@
-import { randomUUID } from 'crypto';
-const id = randomUUID();
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
