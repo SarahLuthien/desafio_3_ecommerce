@@ -57,9 +57,10 @@ export function ProductInfo({ product }: ProductInfoProps) {
       </div>
 
       {/* Ações: Quantidade e Botões */}
-      <div className="d-flex align-items-center mb-5">
-        <div className="quantity-selector d-flex align-items-center me-3">
+      <div className="d-flex flex-column flex-xl-row align-items-md-center mb-5 gap-3">
+        <div className="quantity-selector d-flex align-items-center justify-content-center w-100 w-md-auto mb-3 mb-md-0 me-md-3">
           <Button
+            size="sm"
             variant="outline-dark"
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
           >
@@ -67,20 +68,30 @@ export function ProductInfo({ product }: ProductInfoProps) {
           </Button>
           <span className="mx-3 fs-5">{quantity}</span>
           <Button
+            size="sm"
             variant="outline-dark"
             onClick={() => setQuantity((q) => q + 1)}
           >
             +
           </Button>
         </div>
-        <Button variant="outline-dark" size="lg" className="btn-cart me-3">
+
+        <Button
+          size="sm"
+          variant="outline-dark"
+          className="btn-cart mb-3 mb-md-0 me-md-3 w-100 w-md-auto text-nowrap"
+        >
           Add To Cart
         </Button>
-        <Button variant="outline-dark" size="lg" className="btn-compare">
+
+        <Button
+          size="sm"
+          variant="outline-dark"
+          className="btn-compare w-100 w-md-auto text-nowrap"
+        >
           + Compare
         </Button>
       </div>
-
       <hr />
 
       {/* Informações */}

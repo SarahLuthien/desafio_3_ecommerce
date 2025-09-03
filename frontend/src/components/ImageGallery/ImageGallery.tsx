@@ -19,28 +19,56 @@ export function ImageGallery({ imageUrls = [] }: ImageGalleryProps) {
   const mainImageUrl = imageUrls[selectedImageIndex];
 
   return (
-    <Row>
-      {/* Coluna das miniataras */}
-      <Col xs={2}>
-        <div className="thumbnail-container">
+    <Row className="g-3 mb-4 mb-xl-0">
+      {/* Imagem Principal */}
+      <Col xs={12} xl={10} className="order-xl-2">
+        {mainImageUrl && (
+          <Image
+            src={mainImageUrl}
+            fluid
+            className="w-100"
+            style={{
+              aspectRatio: "1 / 1",
+              objectFit: "cover",
+              borderRadius: "0.5rem",
+            }}
+          />
+        )}
+      </Col>
+
+      {/* Coluna das Miniaturas */}
+      <Col xs={12} xl={2} className="order-xl-1">
+        <div
+          className="d-flex flex-row flex-xl-column overflow-auto"
+          style={{ maxHeight: "550px" }}
+        >
           {imageUrls.map((url, index) => (
             <div
               key={index}
-              className={`thumbnail-item ${
-                selectedImageIndex === index ? "active" : ""
-              }`}
+              className="me-2 me-xl-0 mb-xl-2"
               onClick={() => setSelectedImageIndex(index)}
+              style={{ cursor: "pointer", flexShrink: 0 }}
             >
-              <Image src={url} className="gallery-thumbnail-img" />
+              <Image
+                src={url}
+                fluid
+                className="w-100 rounded"
+                style={{
+                  width: "80px",
+                  height: "80px",
+                  objectFit: "cover",
+                  border:
+                    selectedImageIndex === index
+                      ? "2px solid #FFD700"
+                      : "1px solid #dee2e6",
+                }}
+              />
             </div>
           ))}
         </div>
       </Col>
-
-      {/* Imagem principal */}
-      <Col xs={10}>
-        {mainImageUrl && <Image src={mainImageUrl} className="main-image" />}
-      </Col>
     </Row>
   );
 }
+
+export default ImageGallery;
