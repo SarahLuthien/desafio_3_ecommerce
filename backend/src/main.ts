@@ -20,7 +20,7 @@ async function bootstrap() {
   } else {
     app.enableCors({
       origin: [
-        'https://desafio-3-ecommerce-three.vercel.app/',
+        'https://desafio-3-ecommerce-three.vercel.app',
         'https://desafio-3-ecommerce-*.vercel.app',
       ],
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
