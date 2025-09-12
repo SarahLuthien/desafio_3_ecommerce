@@ -6,20 +6,31 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe());
-
   const reflector = app.get(Reflector);
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
 
-  app.enableCors({
-    origin: [
-      'http://localhost:5173',
-      'https://desafio-3-ecommerce.vercel.app',
-      'https://desafio-3-ecommerce-*.vercel.app',
-    ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    credentials: true,
-  });
+  const isProduction = process.env.NODE_ENV === 'production';
 
-  await app.listen(process.env.PORT ?? 3000);
+  if (!isProduction) {
+    app.enableCors({
+      origin: '*',
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    });
+    console.log('CORS: liberado para desenvolvimento (localhost)');
+  } else {
+    app.enableCors({
+      origin: [
+        'https://desafio-3-ecommerce.vercel.app',
+        'https://desafio-3-ecommerce-*.vercel.app',
+      ],
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+      credentials: true,
+    });
+    console.log('CORS: liberado para produção (Vercel front)');
+  }
+
+  const port = process.env.PORT ?? 3000;
+  await app.listen(port);
+  console.log(`Backend rodando na porta ${port}`);
 }
 bootstrap();
