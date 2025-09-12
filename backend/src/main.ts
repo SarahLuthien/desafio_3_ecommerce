@@ -20,17 +20,15 @@ async function bootstrap() {
   } else {
     app.enableCors({
       origin: [
-        'https://desafio-3-ecommerce.vercel.app',
+        'https://desafio-3-ecommerce-three.vercel.app/',
         'https://desafio-3-ecommerce-*.vercel.app',
       ],
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
       credentials: true,
     });
-    console.log('CORS: liberado para produção (Vercel front)');
   }
 
   const port = process.env.PORT ?? 3000;
   await app.listen(port);
-  console.log(`Backend rodando na porta ${port}`);
 }
 bootstrap();
