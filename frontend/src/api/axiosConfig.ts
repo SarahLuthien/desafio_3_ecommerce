@@ -9,7 +9,6 @@ const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use((config) => {
-  console.log("Axios Request:", `${config.baseURL}${config.url ?? ""}`);
   return config;
 });
 
