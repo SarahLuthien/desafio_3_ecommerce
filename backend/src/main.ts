@@ -3,16 +3,6 @@ import { AppModule } from './app.module';
 import { ValidationPipe, ClassSerializerInterceptor } from '@nestjs/common';
 
 async function bootstrap() {
-  console.log('--- VARIÁVEIS DE AMBIENTE VISTAS PELA APLICAÇÃO ---');
-  console.log({
-    NODE_ENV: process.env.NODE_ENV,
-    PORT: process.env.PORT,
-    DB_HOST: process.env.DB_HOST,
-    DB_PORT: process.env.DB_PORT,
-    DB_USERNAME: process.env.DB_USERNAME,
-  });
-  console.log('--- FIM DO DIAGNÓSTICO ---');
-
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe());
